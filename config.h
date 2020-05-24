@@ -19,6 +19,9 @@ static const char green[]           = "#98C379";
 static const char yellow[]          = "#E5C07B";
 static const char cyan[]            = "#56B6C2";
 static const char white[]           = "#F0F2F4";
+// 255 is 100% opaque
+static const unsigned int baralpha = 230;
+static const unsigned int borderalpha = OPAQUE;
 
 static const char *colors[][3]      = {
 	/*               fg     bg     border   */
@@ -26,11 +29,11 @@ static const char *colors[][3]      = {
 	[SchemeSel]  = { white, red,   red       },
 };
 
-//static const char *colors[][3]      = {
-//	/*               fg         bg         border   */
-//	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-//	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
-//};
+static const unsigned int alphas[][3]      = {
+	/*               fg      bg        border     */
+	[SchemeNorm] = { OPAQUE, baralpha, OPAQUE },
+	[SchemeSel]  = { OPAQUE, baralpha, OPAQUE },
+};
 
 /* tagging */
 static const char *tags[] = { "", "", "", "" };
