@@ -1,12 +1,14 @@
 /* See LICENSE file for copyright and license details. */
 
+#include "gaplessgrid.c"
+
 /* appearance */
 static const unsigned int borderpx  = 3;        /* border pixel of windows */
 static const unsigned int gappx     = 0;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "Liberation Mono:size=10" };
+static const char *fonts[]          = { "LiberationMono:size=10" };
 
 static const char black[]           = "#282C34";
 static const char lighter_black[]   = "#646E82";
@@ -19,7 +21,7 @@ static const char yellow[]          = "#E5C07B";
 static const char cyan[]            = "#56B6C2";
 static const char white[]           = "#F0F2F4";
 
-static const unsigned int baralpha = 230;
+static const unsigned int baralpha = 220;
 static const unsigned int borderalpha = OPAQUE;
 
 static const char *colors[][3]      = {
@@ -61,6 +63,9 @@ static const Layout layouts[] = {
 	{ "[]=",      tile },    /* first entry is default */
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
+	{ "|M|",      centeredmaster },
+	{ ">M>",      centeredfloatingmaster },
+	{ "###",      gaplessgrid },
 };
 
 /* key definitions */
@@ -81,8 +86,6 @@ static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
-	{ MODKEY,                       XK_e,      focusstack,     {.i = +1 } }, // These are custom
-	{ MODKEY,                       XK_q,      focusstack,     {.i = -1 } }, // These are custom
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
@@ -95,6 +98,10 @@ static Key keys[] = {
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY,                       XK_u,      setlayout,      {.v = &layouts[3]} },
+	{ MODKEY,                       XK_o,      setlayout,      {.v = &layouts[4]} },
+	{ MODKEY,                       XK_g,      setlayout,      {.v = &layouts[5] } },
+	{ MODKEY|ShiftMask,             XK_f,      togglefullscr,  {0} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
