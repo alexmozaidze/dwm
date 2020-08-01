@@ -1,58 +1,10 @@
-#+TITLE: My DWM configurations file
-#+PROPERTY: header-args :tangle config.h :main no
-
-* Intro
-This is my DWM build I use every day.
-I'm too lazy to write any more.
-
-* Window border thickness
-Thickness of window border in pixels. Value of 0 would disable the border. Border will not show no matter the value if only 1 window is present on screen, unless the layout is floating.
-
-#+BEGIN_SRC C
 static const unsigned int borderpx  = 2;
-#+END_SRC
-
-* Gaps between windows
-The padding around windows. Keep in mind that you can still change the gaps with a keybinding.
-
-#+BEGIN_SRC C :padline no
 static const unsigned int gappx     = 0;
-#+END_SRC
-
-* Window edge snap
-Determines how many pixels away should window be from the edge of the screen to stick it onto the edge of the screen.
-
-#+BEGIN_SRC C :padline no
 static const unsigned int snap      = 32;
-#+END_SRC
-
-* Show status bar
-Determines wether the status bar is shown when launching DWM.
-This option only decides if it's showing *by default*, which means you can toggle it on/off with keybinding if you want.
-
-#+BEGIN_SRC C :padline no
 static const int showbar            = 0;
-#+END_SRC
-
-* Top/Bottom status bar
-Determines wether status bar is shown on top or bottom of the screen.
-
-#+BEGIN_SRC C :padline no
 static const int topbar             = 1;
-#+END_SRC
-
-* Fonts
-Determines what fonts should it use for status bar. It uses XFT so it will use backup fonts when your desired font wasn't found, also it makes possible to use emojis and unicode icons instead of normal text.
-
-#+BEGIN_SRC C :padline no
 static const char *fonts[]          = { "LiberationMono:size=10" };
-#+END_SRC
 
-* Colors
-Setting colors for normal state of UI elements and selected state.
-Colors are stored in constants so that only they can be changed to change to desired color shceme.
-
-#+BEGIN_SRC C
 static const char black[]           = "#282C34";
 static const char lighter_black[]   = "#646E82";
 static const char gray[]            = "#ABB2BF";
@@ -69,15 +21,7 @@ static const char *colors[][3]      = {
 	[SchemeNorm]   = { gray,  black,  lighter_black },
 	[SchemeSel]    = { white, red,    red           },
 };
-#+END_SRC
 
-* Transparency
-Setting transparency for UI elements.
-Alpha for windows border and status bar are stored in constants.
-Max value of alpha is 255; OPAQUE is a constant that is equal to 0.
-NOTE: It will only work if you have a compositor working, otherwise will always be opaque.
-
-#+BEGIN_SRC C
 static const unsigned int baralpha = 150;
 static const unsigned int borderalpha = OPAQUE;
 
@@ -86,33 +30,9 @@ static const unsigned int alphas[][3]      = {
 	[SchemeNorm] = { OPAQUE, baralpha, baralpha },
 	[SchemeSel]  = { OPAQUE, baralpha, baralpha },
 };
-#+END_SRC
 
-* Tags/Workspaces
-In DWM, there are no workspaces but tags; it's kinda the same except you can have the same window on 2 different tags or to have windows from 2 different tags on one screen.
-You can put any string (be that some kind of text, number or even a unicode icon) in between quotes and DWM will put the contents of those strings and put them inside the tag buttons.
-This is what I have:
-
-#+BEGIN_SRC C
 static const char *tags[] = { "  ", "  ", "  ", "  " };
-#+END_SRC
 
-Here's an example with enumerated tags:
-
-#+BEGIN_SRC C :tangle no
-static const char *tags[] = { "1", "2", "3", "4" };
-#+END_SRC
-
-Here's another example with normal text:
-
-#+BEGIN_SRC C :tangle no
-static const char *tags[] = { "Main", "Browser", "Images", "Videos" };
-#+END_SRC
-
-* Rules
-Determining rules for certain windows.
-
-#+BEGIN_SRC C
 static const Rule rules[] = {
 	/* class         instance    title       tags mask     isfloating   monitor */
 	{ "st-256color", NULL,       NULL,       1,            0,           -1 },
@@ -123,13 +43,7 @@ static const Rule rules[] = {
 	{ "Parole",      NULL,       NULL,       8,            0,           -1 },
 	{ "MPlayer",     NULL,       NULL,       8,            0,           -1 },
 };
-#+END_SRC
 
-* Layouts
-In my fork I have 6 layouts in total (3 of them are added by patches).
-You can change the string that would show up on certain layout to your preference.
-
-#+BEGIN_SRC C
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },
@@ -139,37 +53,11 @@ static const Layout layouts[] = {
 	{ ">M>",      centeredfloatingmaster },
 	{ "###",      gaplessgrid },
 };
-#+END_SRC
 
-* Layouts' window behaviour
-Those three options determine windows behaviour in all the layouts (except floating and grid).
-
-The explanation of every option:
-
-Decides how much space the master area will take up by default (can be changed with keybindings).
-The value can arrange from 0.05 to 0.95
-
-#+BEGIN_SRC C :padline yes
 static const float mfact     = 0.55;
-#+END_SRC
-
-Decides how many clients will be in master area.
-
-#+BEGIN_SRC C :padline no
 static const int nmaster     = 1;
-#+END_SRC
-
-Some windows (like terminals) can talk to DWM and tell it what window size would be good in the window's opinion to guarantee the best user experience. It's good for floating windows but it's really annoying for tiling layouts, so I turned it off.
-
-#+BEGIN_SRC C :padline no
 static const int resizehints = 0;
-#+END_SRC
 
-* Keybindings
-Here are determined keybindings; You might want to change those to your liking.
-NOTE: Mod4Mask is Win key; Change it to Mod2Mask to get Alt key instead.
-
-#+BEGIN_SRC C
 /* key definitions */
 #define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
@@ -230,12 +118,7 @@ static Key keys[] = {
 	TAGKEYS( XK_3, 2 )
 	TAGKEYS( XK_4, 3 )
 };
-#+END_SRC
 
-* Buttons
-This section determines what to do when clicking on certain buttons on the status bar.
-
-#+BEGIN_SRC C
 /* button definitions */
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static Button buttons[] = {
@@ -251,4 +134,3 @@ static Button buttons[] = {
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 };
-#+END_SRC
