@@ -167,7 +167,7 @@ static const int resizehints = 0;
 
 * Keybindings
 Here are determined keybindings; You might want to change those to your liking.
-NOTE: Mod4Mask is Win key; Change it to Mod2Mask to get Alt key instead.
+NOTE: Mod4Mask is Win key, change it to Mod2Mask to get Alt key instead.
 
 #+BEGIN_SRC C
 /* key definitions */
